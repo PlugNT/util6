@@ -1,0 +1,12 @@
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\bin\Debug\EtermPid.Database.xml
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\bin\Debug\EtermPid.Database.dll
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\bin\Debug\EtermPid.Database.pdb
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\obj\Debug\EtermPid.Database.csprojResolveAssemblyReference.cache
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\obj\Debug\EtermPid.Database.dll
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\obj\Debug\EtermPid.Database.pdb
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\bin\Debug\EtermPid.Database.xml
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\bin\Debug\EtermPid.Database.dll
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\bin\Debug\EtermPid.Database.pdb
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\obj\Debug\EtermPid.Database.dll
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\obj\Debug\EtermPid.Database.pdb
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\obj\Debug\EtermPid.Database.csprojResolveAssemblyReference.cache

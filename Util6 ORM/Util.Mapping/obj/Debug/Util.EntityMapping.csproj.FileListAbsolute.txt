@@ -1,0 +1,11 @@
+D:\agui\program\csharp\Util.Basics\Util.Mapping\bin\Debug\Util.EntityMapping.xml
+D:\agui\program\csharp\Util.Basics\Util.Mapping\bin\Debug\Util.EntityMapping.dll
+D:\agui\program\csharp\Util.Basics\Util.Mapping\bin\Debug\Util.EntityMapping.pdb
+D:\agui\program\csharp\Util.Basics\Util.Mapping\bin\Debug\Newtonsoft.Json.dll
+D:\agui\program\csharp\Util.Basics\Util.Mapping\bin\Debug\Util.Database.dll
+D:\agui\program\csharp\Util.Basics\Util.Mapping\bin\Debug\Util.Database.pdb
+D:\agui\program\csharp\Util.Basics\Util.Mapping\bin\Debug\Util.Database.xml
+D:\agui\program\csharp\Util.Basics\Util.Mapping\bin\Debug\Newtonsoft.Json.xml
+D:\agui\program\csharp\Util.Basics\Util.Mapping\obj\Debug\Util.EntityMapping.csprojResolveAssemblyReference.cache
+D:\agui\program\csharp\Util.Basics\Util.Mapping\obj\Debug\Util.EntityMapping.dll
+D:\agui\program\csharp\Util.Basics\Util.Mapping\obj\Debug\Util.EntityMapping.pdb

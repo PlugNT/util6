@@ -1,0 +1,16 @@
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\Kxnet.Database.xml
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\Kxnet.Database.dll
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\Kxnet.Database.pdb
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\MySql.Data.dll
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\ICSharpCode.SharpZipLib.dll
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\MySql.Data.xml
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\ICSharpCode.SharpZipLib.xml
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\obj\Debug\ResolveAssemblyReference.cache
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\obj\Debug\Kxnet.Database.dll
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\obj\Debug\Kxnet.Database.pdb
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\Kxnet.Common.dll
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\Kxnet.Safe.dll
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\Kxnet.Common.xml
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\Kxnet.Safe.xml
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\IBatisNet.Common.dll
+F:\agui\work\fwxt\Kxnet\Kxnet.Database\bin\Debug\IBatisNet.DataMapper.dll

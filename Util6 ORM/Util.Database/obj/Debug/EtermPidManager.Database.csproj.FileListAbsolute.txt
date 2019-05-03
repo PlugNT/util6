@@ -1,0 +1,7 @@
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\bin\Debug\EtermPidManager.Database.xml
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\bin\Debug\EtermPidManager.Database.dll
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\bin\Debug\EtermPidManager.Database.pdb
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\bin\Debug\MySql.Data.xml
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\obj\Debug\EtermPidManager.Database.dll
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\obj\Debug\EtermPidManager.Database.pdb
+D:\agui\work\my_eterm\EtermPidManager\EtermPidManager.Database\obj\Debug\EtermPidManager.Database.csprojResolveAssemblyReference.cache

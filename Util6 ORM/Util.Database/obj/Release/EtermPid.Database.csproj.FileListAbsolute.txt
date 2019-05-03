@@ -1,0 +1,5 @@
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\bin\Release\EtermPid.Database.dll
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\bin\Release\EtermPid.Database.pdb
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\obj\Release\EtermPid.Database.dll
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\obj\Release\EtermPid.Database.pdb
+D:\agui\work\my_eterm\EtermPidManager\EtermPid.Database\obj\Release\EtermPid.Database.csprojResolveAssemblyReference.cache
