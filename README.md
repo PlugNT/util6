@@ -3,7 +3,7 @@
 </p>
 <p>
     官方网站：https://www.util6.com<br>
-    <a href="https://www.cnblogs.com/dreamman/p/10805041.html" target="_blank">测试示例：https://www.cnblogs.com/dreamman/p/10805041.html</a>
+    测试示例：<a href="https://www.cnblogs.com/dreamman/p/10805041.html" target="_blank">https://www.cnblogs.com/dreamman/p/10805041.html</a>
 </p>
 <p>
     <span style="font-size: 12px;"></span><br/>
