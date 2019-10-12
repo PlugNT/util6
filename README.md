@@ -42,22 +42,23 @@
     <span style="font-size: 12px;"></span><br/>
 </p>
 <p></p>
-<pre><span style="color: #0000ff;">public</span> FindMaintainRoleOutput FindMaintainRole(<span style="color: #0000ff;">int</span><span style="color: #000000;"> roleID)
+<pre><span style="color: #0000ff;">private MisDataAccessStorage storage = new MisDataAccessStorage();</span>
+<span style="color: #0000ff;">public</span> FindMaintainRoleOutput FindMaintainRole(<span style="color: #0000ff;">int</span><span style="color: #000000;"> roleID)
 {
     </span><span style="color: #0000ff;">var</span> output = <span style="color: #0000ff;">new</span><span style="color: #000000;"> FindMaintainRoleOutput();
-    output.Role </span>= <span style="color: #0000ff;">new</span> MisRoleDataAccess().Query(m =&gt; m.ID ==<span style="color: #000000;"> roleID).ToModel();
+    output.Role </span>= storage.MisRole.Query(m =&gt; m.ID ==<span style="color: #000000;"> roleID).ToEntity();
     </span><span style="color: #0000ff;">if</span> (output.Role != <span style="color: #0000ff;">null</span><span style="color: #000000;">)
     {
         </span><span style="color: #0000ff;">var</span> role =<span style="color: #000000;"> output.Role;
-        output.Project </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> MisProjectService().FindEntity(role.ProjectID);
-        output.UserRoleList </span>= <span style="color: #0000ff;">new</span> MisUserRoleDataAccess().Query(m =&gt; m.RoleID ==<span style="color: #000000;"> role.ID).ToList();
-        output.RoleRightsList </span>= <span style="color: #0000ff;">new</span> MisRoleRightsDataAccess().Query(m =&gt; m.RoleID ==<span style="color: #000000;"> role.ID).ToList();
-        output.RoleExtendList </span>= <span style="color: #0000ff;">new</span> MisRoleExtendDataAccess().Query(m =&gt; m.RoleID ==<span style="color: #000000;"> role.ID).ToList();
+        output.Project </span>= <span style="color: #000000;">storage.MisProject.Query(m =&gt; m.ID ==role.ProjectID).ToEntity();
+        output.UserRoleList </span>= storage.MisUserRole.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> role.ID).ToList();
+        output.RoleRightsList </span>= storage.MisRoleRights.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> role.ID).ToList();
+        output.RoleExtendList </span>= storage.MisRoleExtend.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> role.ID).ToList();
         </span><span style="color: #0000ff;">var</span> rightsIDList = output.RoleRightsList.Select(m =&gt;<span style="color: #000000;"> m.RightsID).ToList();
         </span><span style="color: #0000ff;">if</span> (rightsIDList.Count &gt; <span style="color: #800080;">0</span><span style="color: #000000;">)
         {
-            output.RightsList </span>= <span style="color: #0000ff;">new</span> MisRightsDataAccess().Query(m=&gt;<span style="color: #000000;"> rightsIDList.Contains(m.ID)).ToList();
-            output.RightsPageList </span>= <span style="color: #0000ff;">new</span> MisRightsPageDataAccess().Query(m =&gt;<span style="color: #000000;"> rightsIDList.Contains(m.RightsID)).ToList();
+            output.RightsList </span>= storage.MisRights.Query(m=&gt;<span style="color: #000000;"> rightsIDList.Contains(m.ID)).ToList();
+            output.RightsPageList </span>= storage.MisRightsPage.Query(m =&gt;<span style="color: #000000;"> rightsIDList.Contains(m.RightsID)).ToList();
         }
     }
     </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> output;
