@@ -49,12 +49,11 @@
     output.Role </span>= storage.MisRole.Query(m =&gt; m.ID ==<span style="color: #000000;"> roleID).ToEntity();
     </span><span style="color: #0000ff;">if</span> (output.Role != <span style="color: #0000ff;">null</span><span style="color: #000000;">)
     {
-        </span><span style="color: #0000ff;">var</span> role =<span style="color: #000000;"> output.Role;
-        output.Project </span>= <span style="color: #000000;">storage.MisProject.Query(m =&gt; m.ID ==role.ProjectID).ToEntity();
-        output.UserRoleList </span>= storage.MisUserRole.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> role.ID).ToList();
-        output.RoleRightsList </span>= storage.MisRoleRights.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> role.ID).ToList();
-        output.RoleExtendList </span>= storage.MisRoleExtend.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> role.ID).ToList();
-        </span><span style="color: #0000ff;">var</span> rightsIDList = output.RoleRightsList.Select(m =&gt;<span style="color: #000000;"> m.RightsID).ToList();
+        output.Project </span>= <span style="color: #000000;">storage.MisProject.Query(m =&gt; m.ID == output.Role.ProjectID).ToEntity();
+        output.UserRoleList </span>= storage.MisUserRole.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> output.Role.ID).ToList();
+        output.RoleRightsList </span>= storage.MisRoleRights.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> output.Role.ID).ToList();
+        output.RoleExtendList </span>= storage.MisRoleExtend.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> output.Role.ID).ToList();
+        </span><span style="color: #0000ff;">var</span> rightsIDList = output.RoleRights.Select(m =&gt;<span style="color: #000000;"> m.RightsID).ToList();
         </span><span style="color: #0000ff;">if</span> (rightsIDList.Count &gt; <span style="color: #800080;">0</span><span style="color: #000000;">)
         {
             output.RightsList </span>= storage.MisRights.Query(m=&gt;<span style="color: #000000;"> rightsIDList.Contains(m.ID)).ToList();
