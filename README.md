@@ -1,67 +1,234 @@
+
+![Util6 ORM](http://www.util6.com/content/website/images/logo.png "Util6 ORM")
+<h4>
+  Util6 ORM 创建于2014年，于2019年正式开源，是在Util.Database数据库框架依赖的基础上实现的一个轻量级强类型ORM框架。</h4>
+
+
 <p>
-    Util6 ORM 创建于2014年，于2019年正式开源，是在Util.Database数据库框架依赖的基础上实现的一个轻量级强类型ORM框架。
-</p>
-<p>
-    官方网站：https://www.util6.com<br>
+    官方网站：https://www.util6.com
+<br>
     测试示例：<a href="https://www.cnblogs.com/dreamman/p/10805041.html" target="_blank">https://www.cnblogs.com/dreamman/p/10805041.html</a>
 </p>
+
 <p>
     <span style="font-size: 12px;"></span><br/>
 </p>
+
 <h4>
     Util6 ORM 特点
 </h4>
 <ul style="list-style-type: square;" class=" list-paddingleft-2">
-    <li>
-        <p>
-            <span style="font-size: 12px;">上手容易，语法简单，<span style="font-size: 12px;">性能优，体积小</span></span>
+    
+<li>
+  <p>
+<span style="font-size: 12px;">上手容易，语法简单，<span style="font-size: 12px;">性能优，体积小</span></span>
         </p>
     </li>
-    <li>
-        <p>
-            <span style="font-size: 12px;">核心方法：查询(<span style="font-size: 12px;">Query</span>) 、新增(Insert)、更新(Update)、删除(Delete)</span>
+    
+<li>
+ <p>
+<span style="font-size: 12px;">核心方法：查询(<span style="font-size: 12px;">Query</span>) 、新增(Insert)、更新(Update)、删除(Delete)</span>
         </p>
     </li>
-    <li>
-        <p>
-            <span style="font-size: 12px;">支持多数据库<span style="font-size: 12px; color: rgb(0, 112, 192);">Sql Server</span>,<span style="font-size: 12px; color: rgb(0, 112, 192);">MySql</span>,<span style="font-size: 12px; color: rgb(0, 112, 192);">Access</span>,等数据库</span>
+ 
+<li> <p><span style="font-size: 12px;">支持多数据库</span><span style="font-size: 12px; color: rgb(0, 112, 192);">Sql Server</span>,<span style="font-size: 12px; color: 
+
+rgb(0, 112, 192);">MySql</span>,<span style="font-size: 12px; color: rgb(0, 112, 192);">Access</span>,等数据库</span>
         </p>
     </li>
+
+<li>
+        <p>
+            <span style="font-size: 12px;">支持数据库读写分离配置、仓储操作、日志过滤、强类型约束、充血贫血模式</span>
+        </p>
+    </li>
+
 </ul>
-<p>
-    <span style="font-size: 12px;"></span>
-</p>
-<ul class=" list-paddingleft-2" style="list-style-type: square;">
-    <li>
-        <p>
-            <span style="font-size: 12px;">支持数据库读写分离配置</span>
-        </p>
-    </li>
-</ul>
-<p>
-    <span style="font-size: 12px;"></span><br/>
-</p>
-<p></p>
-<pre><span style="color: #0000ff;">private MisDataAccessStorage storage = new MisDataAccessStorage();</span>
-<span style="color: #0000ff;">public</span> FindMaintainRoleOutput FindMaintainRole(<span style="color: #0000ff;">int</span><span style="color: #000000;"> roleID)
+
+
+ 
+<br /><h6>新增操作</h6>
+<pre class="prettyprint lang-cs">
+public InfoResult< string > Insert(MisProjectEntity project)
 {
-    </span><span style="color: #0000ff;">var</span> output = <span style="color: #0000ff;">new</span><span style="color: #000000;"> FindMaintainRoleOutput();
-    output.Role </span>= storage.MisRole.Query(m =&gt; m.ID ==<span style="color: #000000;"> roleID).ToEntity();
-    </span><span style="color: #0000ff;">if</span> (output.Role != <span style="color: #0000ff;">null</span><span style="color: #000000;">)
+    var result = new InfoResult< string > { IsSuccess = false };
+    if (storage.MisProject.Query(m => m.Name == project.Name || m.ID == project.ID).ToCount() > 0)
     {
-        output.Project </span>= <span style="color: #000000;">storage.MisProject.Query(m =&gt; m.ID == output.Role.ProjectID).ToEntity();
-        output.UserRoleList </span>= storage.MisUserRole.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> output.Role.ID).ToList();
-        output.RoleRightsList </span>= storage.MisRoleRights.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> output.Role.ID).ToList();
-        output.RoleExtendList </span>= storage.MisRoleExtend.Query(m =&gt; m.RoleID ==<span style="color: #000000;"> output.Role.ID).ToList();
-        </span><span style="color: #0000ff;">var</span> rightsIDList = output.RoleRights.Select(m =&gt;<span style="color: #000000;"> m.RightsID).ToList();
-        </span><span style="color: #0000ff;">if</span> (rightsIDList.Count &gt; <span style="color: #800080;">0</span><span style="color: #000000;">)
+        return result.SetMessage("添加项目失败，已存在相同的项目！");
+    }
+
+    project.Remark = project.Remark ?? string.Empty;
+    project.DatCreate = DateTime.Now;
+    project.UpdateFlag = UtilityHelper.GetGuidForLong().ToString();
+    project.AllowUserTypes = project.AllowUserTypes ?? string.Empty;
+    project.AreaName = project.AreaName ?? string.Empty;
+
+    var pid = storage.MisProject.SetEntity(project).Insert();
+    if (pid <= 0) return result.SetMessage("添加项目失败！");
+    CacheManageCore.RemoveProjects();
+
+    var logInfo = string.Format("添加项目为{0}", project.Name);
+    WriteDbLogInfo(LogOperType.新增, logInfo);
+    return result.SetMessage($"添加项目成功！").SetSuccess();
+}
+</pre>
+
+<br><h6>更新操作</h6>
+<pre class="prettyprint lang-cs">
+public InfoResult< string > Update(MisUserEntity user)
+{
+    var result = new InfoResult< string > { IsSuccess = false };
+    var entity = storage.MisUser.Query(m => m.ID == user.ID).ToEntity();
+    if (entity == null)
+    {
+        return result.SetMessage("ID为" + user.ID + "的用户不存在！");
+    }
+    if (!string.IsNullOrWhiteSpace(user.Password))
+    {
+        entity.Password = entity.SaltPassword(user.Password);
+        if (user.Password.Length < 6 || user.Password.Length > 20)
         {
-            output.RightsList </span>= storage.MisRights.Query(m=&gt;<span style="color: #000000;"> rightsIDList.Contains(m.ID)).ToList();
-            output.RightsPageList </span>= storage.MisRightsPage.Query(m =&gt;<span style="color: #000000;"> rightsIDList.Contains(m.RightsID)).ToList();
+            return result.SetMessage("修改用户失败，密码长度必须在6-20范围内！");
         }
     }
-    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> output;
-}</span></pre>
-<p>
-    <br/>
-</p>
+    entity.NickName = user.NickName ?? string.Empty;
+    entity.IsEnabled = user.IsEnabled;
+
+    var flag = user.UpdateFlag ?? string.Empty;
+    entity.UpdateFlag = UtilityHelper.GetGuidForLong().ToString();
+    //修改包括扩展用户
+    if (!UserExtendCore.UpdateUser(entity, flag))
+    {
+        return result.SetMessage("修改用户失败，该记录可能在其他地方修改过！");
+    }
+    CacheManageCore.RemoveUser(entity.ID);
+    CacheManageCore.RemoveRightsInfo(entity.ID);
+
+    var logInfo = $"修改用户为{user.UserName}";
+    WriteDbLogInfo(LogOperType.更新, logInfo);
+    return result.SetMessage($"修改用户成功！").SetSuccess();
+}
+</pre>
+
+ 
+<br><h6>删除操作</h6>
+<pre class="prettyprint lang-cs">
+public InfoResult< string > Delete(int id)
+{
+    var result = new InfoResult< string > { IsSuccess = false };
+    if (!storage.MisProject.Delete(m=>m.ID == id)) return result.SetMessage("删除项目失败！");
+    CacheManageCore.RemoveProjects();
+
+    var logInfo = string.Format("删除项目ID为{0}", id);
+    WriteDbLogInfo(LogOperType.删除, logInfo);
+    return result.SetMessage($"删除项目成功！").SetSuccess();            
+}
+</pre>
+
+ 
+<br><h6>分页条件查询</h6>
+<pre class="prettyprint lang-cs">public FindPageListOutput FindPageList(FindPageListInput input)
+{
+    //查找日期
+    var mapper = storage.MisLog.Query();
+    if (!string.IsNullOrWhiteSpace(input.DatBegin))
+    {
+        var datBegin = DateTime.Parse(input.DatBegin);
+        mapper.And(m => m.DatCreate >= datBegin);
+    }
+    if (!string.IsNullOrWhiteSpace(input.DatEnd))
+    {
+        var datEnd = DateTime.Parse(input.DatEnd);
+        mapper.And(m => m.DatCreate <= datEnd);
+    }
+    //查找操作员
+    if (!string.IsNullOrWhiteSpace(input.Oper))
+    {
+        mapper.And(m => m.Oper == input.Oper);
+    }
+    //分页及排序
+    if (!string.IsNullOrWhiteSpace(input.SortName))
+    {
+        if (input.SortType == 0)
+        {
+            mapper.SortAsc(input.SortName);
+        }
+        else
+        {
+            mapper.SortDesc(input.SortName);
+        }
+    }
+
+    var output = new FindPageListOutput();
+    output.RecordCount = mapper.ToCount();
+    output.LogList = mapper.ToList(input.PageSize, input.CurrPage, output.RecordCount);
+    return output;
+}</pre>
+
+ 
+<br><h6>多表查询</h6>
+<pre class="prettyprint lang-cs">private MisDataAccessStorage storage = new MisDataAccessStorage();
+public FindMaintainRoleOutput FindMaintainRole(int roleID)
+{
+    var output = new FindMaintainRoleOutput();
+    output.Role = storage.MisRole.Query(m => m.ID == roleID).ToEntity();
+    if (output.Role != null)
+    {
+        output.Project = storage.MisProject.Query(m => m.ID == output.Role.ProjectID).ToEntity();
+        output.UserRoleList = storage.MisUserRole.Query(m => m.RoleID == output.Role.ID).ToList();
+        output.RoleRightsList = storage.MisRoleRights.Query(m => m.RoleID == output.Role.ID).ToList();
+        output.RoleExtendList = storage.MisRoleExtend.Query(m => m.RoleID == output.Role.ID).ToList();
+        var rightsIDList = output.RoleRights.Select(m => m.RightsID).ToList();
+        if (rightsIDList.Count > 0)
+        {
+            output.RightsList = storage.MisRights.Query(m=> rightsIDList.Contains(m.ID)).ToList();
+            output.RightsPageList = storage.MisRightsPage.Query(m => rightsIDList.Contains(m.RightsID)).ToList();
+        }
+    }
+    return output;
+}</pre>
+
+ 
+<br><h6>扩展关联</h6>
+<pre class="prettyprint lang-cs">public List<MisRightsPage> FindRightsPageSet(int userID,int projectID)
+{
+    var config = DbReadConfig;
+    var strSql = $@"SELECT {AllFields} FROM [{T.MisRightsPage}] WHERE {T.MisRightsPage_ProjectID}=@ProjectID and {T.MisRightsPage_RightsID} IN 
+    (
+        SELECT {T.MisRoleRights_RightsID} FROM [{T.MisRoleRights}] WHERE {T.MisRoleRights_RoleID} IN 
+        (
+            SELECT a.{T.MisUserRole_RoleID} FROM [{T.MisUserRole}] as a inner join [{T.MisRole}] as b on a.{T.MisUserRole_RoleID}=b.{T.MisRole_ID} 
+            WHERE a.{T.MisUserRole_UserID}=@UserID and b.{T.MisRole_IsEnabled} = 1
+        )
+    )";
+    var paramters = new { ProjectID = projectID, UserID = userID };
+    return GetList(new DbBuilder(config).GetDataReader(strSql, paramters));
+}</pre>
+
+
+
+<br><h6>批量操作</h6>
+<pre class="prettyprint lang-cs">public void Execute(TicketOrder order)
+{
+    var adultPolicy = storage.PmsPolicyTemplate.Query(m =&gt; m.ID == order.AdultPolicyID).ToEntity();
+    if (adultPolicy != null)
+    {
+        //只修改字段SellCabinCount
+        storage.PmsPolicyTemplate.SetEntity(adultPolicy).SetPartHandled();
+        adultPolicy.SellCabinCount = adultPolicy.SellCabinCount - travelerInfo.AdultCount;
+        storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.AdultPolicyID);
+    }
+    if (!string.IsNullOrWhiteSpace(order.ChildPolicyID))
+    {
+        var childPolicy = storage.PmsPolicyTemplate.Query(m =&gt; m.ID == order.ChildPolicyID).ToEntity();
+        if (childPolicy != null)
+        {
+            storage.PmsPolicyTemplate.SetEntity(childPolicy).SetPartHandled();
+            childPolicy.SellCabinCount = childPolicy.SellCabinCount - (travelerInfo.ChildCount + travelerInfo.InfantCount);
+            storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.ChildPolicyID);
+        }
+    }
+    storage.SaveChanges();
+    return output;
+}
+</pre>
