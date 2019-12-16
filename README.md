@@ -202,7 +202,6 @@ public void Execute(TicketOrder order)
         }
     }
     storage.SaveChanges();
-    return output;
 }
 ```
 
