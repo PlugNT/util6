@@ -183,7 +183,7 @@ public FindMaintainRoleOutput FindMaintainRole(int roleID)
         //只修改字段SellCabinCount
         storage.PmsPolicyTemplate.SetEntity(adultPolicy).SetPartHandled();
         adultPolicy.SellCabinCount = adultPolicy.SellCabinCount - travelerInfo.AdultCount;
-        storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.AdultPolicyID);
+        storage.PmsPolicyTemplate.`AttachUpdate`(m =&gt; m.ID == order.AdultPolicyID);
     }
     if (!string.IsNullOrWhiteSpace(order.ChildPolicyID))
     {
@@ -192,10 +192,10 @@ public FindMaintainRoleOutput FindMaintainRole(int roleID)
         {
             storage.PmsPolicyTemplate.SetEntity(childPolicy).SetPartHandled();
             childPolicy.SellCabinCount = childPolicy.SellCabinCount - (travelerInfo.ChildCount + travelerInfo.InfantCount);
-            storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.ChildPolicyID);
+            storage.PmsPolicyTemplate.`AttachUpdate`(m =&gt; m.ID == order.ChildPolicyID);
         }
     }
-    storage.SaveChanges();
+    storage.`SaveChanges`();
     return output;
 }
 </pre>
