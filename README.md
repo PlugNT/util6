@@ -1,49 +1,15 @@
 
 ![Util6 ORM](http://www.util6.com/content/website/images/logo.png "Util6 ORM")
-<h4>
-  Util6 ORM 创建于2014年，于2019年正式开源，是在Util.Database数据库框架依赖的基础上实现的一个轻量级强类型ORM框架。</h4>
+## Util6 ORM 创建于2014年，于2019年正式开源，是在Util.Database数据库框架依赖的基础上实现的一个轻量级强类型ORM框架。
+> 官方网站：https://www.util6.com
+> 测试示例：<a href="https://www.cnblogs.com/dreamman/p/10805041.html" target="_blank">https://www.cnblogs.com/dreamman/p/10805041.html</a>
 
+## Util6 ORM 特点
 
-<p>
-    官方网站：https://www.util6.com
-<br>
-    测试示例：<a href="https://www.cnblogs.com/dreamman/p/10805041.html" target="_blank">https://www.cnblogs.com/dreamman/p/10805041.html</a>
-</p>
-
-<p>
-    <span style="font-size: 12px;"></span><br/>
-</p>
-
-<h4>
-    Util6 ORM 特点
-</h4>
-<ul style="list-style-type: square;" class=" list-paddingleft-2">
-    
-<li>
-  <p>
-<span style="font-size: 12px;">上手容易，语法简单，<span style="font-size: 12px;">性能优，体积小</span></span>
-        </p>
-    </li>
-    
-<li>
- <p>
-<span style="font-size: 12px;">核心方法：查询(<span style="font-size: 12px;">Query</span>) 、新增(Insert)、更新(Update)、删除(Delete)</span>
-        </p>
-    </li>
- 
-<li> <p><span style="font-size: 12px;">支持多数据库</span><span style="font-size: 12px; color: rgb(0, 112, 192);">Sql Server</span>,<span style="font-size: 12px; color: rgb(0, 112, 192);">MySql</span>,<span style="font-size: 12px; color: 
-
-rgb(0, 112, 192);">Access</span>,等数据库</span>
-        </p>
-    </li>
-
-<li>
-        <p>
-            <span style="font-size: 12px;">支持数据库读写分离配置、仓储操作、日志过滤、强类型约束、充血贫血模式</span>
-        </p>
-    </li>
-
-</ul>
+* 上手容易，语法简单，性能优，体积小
+* 核心方法：查询(Query) 、新增(Insert)、更新(Update)、删除(Delete)
+* 支持多数据库Sql Server,MySql,Access,等数据库
+* 支持数据库读写分离配置、仓储操作、日志过滤、强类型约束、充血贫血模式
 
 
  
