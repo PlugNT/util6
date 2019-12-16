@@ -31,9 +31,9 @@
         </p>
     </li>
  
-<li> <p><span style="font-size: 12px;">支持多数据库</span><span style="font-size: 12px; color: rgb(0, 112, 192);">Sql Server</span>,<span style="font-size: 12px; color: 
+<li> <p><span style="font-size: 12px;">支持多数据库</span><span style="font-size: 12px; color: rgb(0, 112, 192);">Sql Server</span>,<span style="font-size: 12px; color: rgb(0, 112, 192);">MySql</span>,<span style="font-size: 12px; color: 
 
-rgb(0, 112, 192);">MySql</span>,<span style="font-size: 12px; color: rgb(0, 112, 192);">Access</span>,等数据库</span>
+rgb(0, 112, 192);">Access</span>,等数据库</span>
         </p>
     </li>
 
@@ -190,7 +190,7 @@ public FindMaintainRoleOutput FindMaintainRole(int roleID)
 
  
 <br><h6>扩展关联</h6>
-<pre class="prettyprint lang-cs">public List<MisRightsPage> FindRightsPageSet(int userID,int projectID)
+<pre class="prettyprint lang-cs">public List< MisRightsPage > FindRightsPageSet(int userID,int projectID)
 {
     var config = DbReadConfig;
     var strSql = $@"SELECT {AllFields} FROM [{T.MisRightsPage}] WHERE {T.MisRightsPage_ProjectID}=@ProjectID and {T.MisRightsPage_RightsID} IN 
