@@ -14,8 +14,8 @@
 
  
 ### 新增操作 
-<pre class="prettyprint lang-cs">
-public InfoResult< string > Insert(MisProjectEntity project)
+```csharp
+public InfoResult<string> Insert(MisProjectEntity project)
 {
     var result = new InfoResult< string > { IsSuccess = false };
     if (storage.MisProject.Query(m => m.Name == project.Name || m.ID == project.ID).ToCount() > 0)
@@ -37,12 +37,11 @@ public InfoResult< string > Insert(MisProjectEntity project)
     WriteDbLogInfo(LogOperType.新增, logInfo);
     return result.SetMessage($"添加项目成功！").SetSuccess();
 }
-</pre>
-
+```
 
 
 ### 更新操作 
-<pre class="prettyprint lang-cs">
+```csharp
 public InfoResult< string > Update(MisUserEntity user)
 {
     var result = new InfoResult< string > { IsSuccess = false };
@@ -76,11 +75,11 @@ public InfoResult< string > Update(MisUserEntity user)
     WriteDbLogInfo(LogOperType.更新, logInfo);
     return result.SetMessage($"修改用户成功！").SetSuccess();
 }
-</pre>
+```
 
  
 ### 删除操作 
-<pre class="prettyprint lang-cs">
+```csharp
 public InfoResult< string > Delete(int id)
 {
     var result = new InfoResult< string > { IsSuccess = false };
@@ -91,11 +90,12 @@ public InfoResult< string > Delete(int id)
     WriteDbLogInfo(LogOperType.删除, logInfo);
     return result.SetMessage($"删除项目成功！").SetSuccess();            
 }
-</pre>
+```
 
  
 ### 分页条件查询 
-<pre class="prettyprint lang-cs">public FindPageListOutput FindPageList(FindPageListInput input)
+```csharp
+public FindPageListOutput FindPageList(FindPageListInput input)
 {
     //查找日期
     var mapper = storage.MisLog.Query();
@@ -131,11 +131,13 @@ public InfoResult< string > Delete(int id)
     output.RecordCount = mapper.ToCount();
     output.LogList = mapper.ToList(input.PageSize, input.CurrPage, output.RecordCount);
     return output;
-}</pre>
+}
+```
 
  
 ### 多表查询 
-<pre class="prettyprint lang-cs">private MisDataAccessStorage storage = new MisDataAccessStorage();
+```csharp
+private MisDataAccessStorage storage = new MisDataAccessStorage();
 public FindMaintainRoleOutput FindMaintainRole(int roleID)
 {
     var output = new FindMaintainRoleOutput();
@@ -154,11 +156,13 @@ public FindMaintainRoleOutput FindMaintainRole(int roleID)
         }
     }
     return output;
-}</pre>
+}
+```
 
  
 ### 扩展关联 
-<pre class="prettyprint lang-cs">public List< MisRightsPage > FindRightsPageSet(int userID,int projectID)
+```csharp
+public List< MisRightsPage > FindRightsPageSet(int userID,int projectID)
 {
     var config = DbReadConfig;
     var strSql = $@"SELECT {AllFields} FROM [{T.MisRightsPage}] WHERE {T.MisRightsPage_ProjectID}=@ProjectID and {T.MisRightsPage_RightsID} IN 
@@ -171,34 +175,11 @@ public FindMaintainRoleOutput FindMaintainRole(int roleID)
     )";
     var paramters = new { ProjectID = projectID, UserID = userID };
     return GetList(new DbBuilder(config).GetDataReader(strSql, paramters));
-}</pre>
+}
+```
 
  
 ### 批量操作
-<pre class="prettyprint lang-cs">public void Execute(TicketOrder order)
-{
-    var adultPolicy = storage.PmsPolicyTemplate.Query(m =&gt; m.ID == order.AdultPolicyID).ToEntity();
-    if (adultPolicy != null)
-    {
-        //只修改字段SellCabinCount
-        storage.PmsPolicyTemplate.SetEntity(adultPolicy).SetPartHandled();
-        adultPolicy.SellCabinCount = adultPolicy.SellCabinCount - travelerInfo.AdultCount;
-        storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.AdultPolicyID);
-    }
-    if (!string.IsNullOrWhiteSpace(order.ChildPolicyID))
-    {
-        var childPolicy = storage.PmsPolicyTemplate.Query(m =&gt; m.ID == order.ChildPolicyID).ToEntity();
-        if (childPolicy != null)
-        {
-            storage.PmsPolicyTemplate.SetEntity(childPolicy).SetPartHandled();
-            childPolicy.SellCabinCount = childPolicy.SellCabinCount - (travelerInfo.ChildCount + travelerInfo.InfantCount);
-            storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.ChildPolicyID);
-        }
-    }
-    storage.SaveChanges();
-    return output;
-}
-</pre>
 ```csharp
 public void Execute(TicketOrder order)
 {
@@ -224,5 +205,6 @@ public void Execute(TicketOrder order)
     return output;
 }
 ```
+
 
 
