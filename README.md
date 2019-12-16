@@ -195,7 +195,34 @@ public FindMaintainRoleOutput FindMaintainRole(int roleID)
             storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.ChildPolicyID);
         }
     }
-    storage.**SaveChanges**();
+    storage.SaveChanges();
     return output;
 }
 </pre>
+```csharp
+public void Execute(TicketOrder order)
+{
+    var adultPolicy = storage.PmsPolicyTemplate.Query(m =&gt; m.ID == order.AdultPolicyID).ToEntity();
+    if (adultPolicy != null)
+    {
+        //只修改字段SellCabinCount
+        storage.PmsPolicyTemplate.SetEntity(adultPolicy).SetPartHandled();
+        adultPolicy.SellCabinCount = adultPolicy.SellCabinCount - travelerInfo.AdultCount;
+        storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.AdultPolicyID);
+    }
+    if (!string.IsNullOrWhiteSpace(order.ChildPolicyID))
+    {
+        var childPolicy = storage.PmsPolicyTemplate.Query(m =&gt; m.ID == order.ChildPolicyID).ToEntity();
+        if (childPolicy != null)
+        {
+            storage.PmsPolicyTemplate.SetEntity(childPolicy).SetPartHandled();
+            childPolicy.SellCabinCount = childPolicy.SellCabinCount - (travelerInfo.ChildCount + travelerInfo.InfantCount);
+            storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.ChildPolicyID);
+        }
+    }
+    storage.SaveChanges();
+    return output;
+}
+```
+
+
