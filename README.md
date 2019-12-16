@@ -13,7 +13,7 @@
 
 
  
-<br /><h6>新增操作</h6>
+### 新增操作 
 <pre class="prettyprint lang-cs">
 public InfoResult< string > Insert(MisProjectEntity project)
 {
@@ -39,7 +39,9 @@ public InfoResult< string > Insert(MisProjectEntity project)
 }
 </pre>
 
-<br><h6>更新操作</h6>
+
+
+### 更新操作 
 <pre class="prettyprint lang-cs">
 public InfoResult< string > Update(MisUserEntity user)
 {
@@ -77,7 +79,7 @@ public InfoResult< string > Update(MisUserEntity user)
 </pre>
 
  
-<br><h6>删除操作</h6>
+### 删除操作 
 <pre class="prettyprint lang-cs">
 public InfoResult< string > Delete(int id)
 {
@@ -92,7 +94,7 @@ public InfoResult< string > Delete(int id)
 </pre>
 
  
-<br><h6>分页条件查询</h6>
+### 分页条件查询 
 <pre class="prettyprint lang-cs">public FindPageListOutput FindPageList(FindPageListInput input)
 {
     //查找日期
@@ -132,7 +134,7 @@ public InfoResult< string > Delete(int id)
 }</pre>
 
  
-<br><h6>多表查询</h6>
+### 多表查询 
 <pre class="prettyprint lang-cs">private MisDataAccessStorage storage = new MisDataAccessStorage();
 public FindMaintainRoleOutput FindMaintainRole(int roleID)
 {
@@ -155,7 +157,7 @@ public FindMaintainRoleOutput FindMaintainRole(int roleID)
 }</pre>
 
  
-<br><h6>扩展关联</h6>
+### 扩展关联 
 <pre class="prettyprint lang-cs">public List< MisRightsPage > FindRightsPageSet(int userID,int projectID)
 {
     var config = DbReadConfig;
@@ -171,9 +173,8 @@ public FindMaintainRoleOutput FindMaintainRole(int roleID)
     return GetList(new DbBuilder(config).GetDataReader(strSql, paramters));
 }</pre>
 
-
-
-<br><h6>批量操作</h6>
+ 
+### 批量操作
 <pre class="prettyprint lang-cs">public void Execute(TicketOrder order)
 {
     var adultPolicy = storage.PmsPolicyTemplate.Query(m =&gt; m.ID == order.AdultPolicyID).ToEntity();
