@@ -17,7 +17,7 @@
 ```csharp
 public InfoResult<string> Insert(MisProjectEntity project)
 {
-    var result = new InfoResult< string > { IsSuccess = false };
+    var result = new InfoResult<string> { IsSuccess = false };
     if (storage.MisProject.Query(m => m.Name == project.Name || m.ID == project.ID).ToCount() > 0)
     {
         return result.SetMessage("添加项目失败，已存在相同的项目！");
@@ -42,9 +42,9 @@ public InfoResult<string> Insert(MisProjectEntity project)
 
 ### 更新操作 
 ```csharp
-public InfoResult< string > Update(MisUserEntity user)
+public InfoResult<string> Update(MisUserEntity user)
 {
-    var result = new InfoResult< string > { IsSuccess = false };
+    var result = new InfoResult<string> { IsSuccess = false };
     var entity = storage.MisUser.Query(m => m.ID == user.ID).ToEntity();
     if (entity == null)
     {
@@ -80,9 +80,9 @@ public InfoResult< string > Update(MisUserEntity user)
  
 ### 删除操作 
 ```csharp
-public InfoResult< string > Delete(int id)
+public InfoResult<string> Delete(int id)
 {
-    var result = new InfoResult< string > { IsSuccess = false };
+    var result = new InfoResult<string> { IsSuccess = false };
     if (!storage.MisProject.Delete(m=>m.ID == id)) return result.SetMessage("删除项目失败！");
     CacheManageCore.RemoveProjects();
 
@@ -162,7 +162,7 @@ public FindMaintainRoleOutput FindMaintainRole(int roleID)
  
 ### 扩展关联 
 ```csharp
-public List< MisRightsPage > FindRightsPageSet(int userID,int projectID)
+public List<MisRightsPage> FindRightsPageSet(int userID,int projectID)
 {
     var config = DbReadConfig;
     var strSql = $@"SELECT {AllFields} FROM [{T.MisRightsPage}] WHERE {T.MisRightsPage_ProjectID}=@ProjectID and {T.MisRightsPage_RightsID} IN 
@@ -183,22 +183,22 @@ public List< MisRightsPage > FindRightsPageSet(int userID,int projectID)
 ```csharp
 public void Execute(TicketOrder order)
 {
-    var adultPolicy = storage.PmsPolicyTemplate.Query(m =&gt; m.ID == order.AdultPolicyID).ToEntity();
+    var adultPolicy = storage.PmsPolicyTemplate.Query(m => m.ID == order.AdultPolicyID).ToEntity();
     if (adultPolicy != null)
     {
         //只修改字段SellCabinCount
         storage.PmsPolicyTemplate.SetEntity(adultPolicy).SetPartHandled();
         adultPolicy.SellCabinCount = adultPolicy.SellCabinCount - travelerInfo.AdultCount;
-        storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.AdultPolicyID);
+        storage.PmsPolicyTemplate.AttachUpdate(m => m.ID == order.AdultPolicyID);
     }
     if (!string.IsNullOrWhiteSpace(order.ChildPolicyID))
     {
-        var childPolicy = storage.PmsPolicyTemplate.Query(m =&gt; m.ID == order.ChildPolicyID).ToEntity();
+        var childPolicy = storage.PmsPolicyTemplate.Query(m => m.ID == order.ChildPolicyID).ToEntity();
         if (childPolicy != null)
         {
             storage.PmsPolicyTemplate.SetEntity(childPolicy).SetPartHandled();
             childPolicy.SellCabinCount = childPolicy.SellCabinCount - (travelerInfo.ChildCount + travelerInfo.InfantCount);
-            storage.PmsPolicyTemplate.AttachUpdate(m =&gt; m.ID == order.ChildPolicyID);
+            storage.PmsPolicyTemplate.AttachUpdate(m => m.ID == order.ChildPolicyID);
         }
     }
     storage.SaveChanges();
